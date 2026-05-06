@@ -2,14 +2,13 @@
 
 continuar=true
 
-while [ "$continuar" = true ]; do
-    menu
-done
-
 function menu(){ 
-    echo "------------------------------------------------"
+    echo ""
+    echo "________________________________________________"
+    echo "|                                              |"
     echo "|                Menú Principal                |"
-    echo "------------------------------------------------"
+    echo "|______________________________________________|"
+    echo "|                                              |"
     echo "|         1. Listar equipos                    |"
     echo "|         2. Mostrar Campeón actual            |"
     echo "|         3. Registrar equipo                  |"
@@ -18,7 +17,7 @@ function menu(){
     echo "|         6. Buscar equipo                     |"
     echo "|         7. Cantidad de partidos jugados      |"
     echo "|         8. Salir                             |"
-    echo "------------------------------------------------"
+    echo "|______________________________________________|"
     read opcion;
     case $opcion in
         1) listar_equipos ;;
@@ -142,3 +141,7 @@ function cantidad_partidos_jugados() {
     fi  
     echo "Cantidad de partidos jugados: $(grep -v '^$' partidos.txt | wc -l)"
 }
+
+while [ "$continuar" = true ]; do
+    menu
+done
