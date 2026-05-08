@@ -43,12 +43,13 @@ function definir_nuevo_campeon() {
         return
     fi
     sed -i '/^Campeon:/d' equipos.txt
+    echo "" >> equipos.txt
     echo "Campeon: $nuevo_campeon" >> equipos.txt
     echo "Nuevo campeón registrado exitosamente."
+    sed -i '/^$/d' equipos.txt
 }
 
 function listar_equipos(){
-    sed -i '/^$/d' equipos.txt
     if [ ! -s equipos.txt ]; then
         echo "No hay equipos registrados."
         return
@@ -67,13 +68,16 @@ function mostrar_campeon_actual(){
 }
 
 function registrar_equipo(){
+    if [ $(grep -v '^$' equipos.txt | wc -l) -gt 15 ]; then
+        echo "Tenga cuidado, hay más de 15 partidos registrados. Esto puede afectar el rendimiento de la búsqueda."
+    fi
     echo "Ingrese el nombre del equipo:"
     read nombre_equipo
     if [ -z "$nombre_equipo" ]; then
         echo "El nombre del equipo no puede estar vacío."
         return
     fi
-    if grep -q "$nombre_equipo" equipos.txt; then
+    if grep -Fxq "$nombre_equipo" equipos.txt; then
         echo "El equipo ya está registrado."
         return
     fi
@@ -81,8 +85,10 @@ function registrar_equipo(){
         echo "El nombre del equipo no puede contener la palabra 'Campeon'."
         return
     fi
+    echo "" >> equipos.txt
     echo "$nombre_equipo" >> equipos.txt
     echo "Equipo registrado exitosamente."
+    sed -i '/^$/d' equipos.txt
 }
 
 function registrar_partido() {
