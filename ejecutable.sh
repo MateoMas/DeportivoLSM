@@ -1,5 +1,18 @@
 #!/bin/bash
 
+if [ ! -f equipos.txt ]; then
+    touch equipos.txt
+    echo "Arsenal" >> equipos.txt
+    echo "Liverpool" >> equipos.txt
+    echo "Chelsea" >> equipos.txt
+    echo "Manchester City" >> equipos.txt
+    echo "Manchester United" >> equipos.txt
+    echo "Tottenham Hotspur" >> equipos.txt
+fi
+if [ ! -f partidos.txt ]; then
+    touch partidos.txt
+fi
+
 continuar=true
 
 function menu(){ 
@@ -69,7 +82,7 @@ function mostrar_campeon_actual(){
 
 function registrar_equipo(){
     if [ $(grep -v '^$' equipos.txt | wc -l) -gt 15 ]; then
-        echo "Tenga cuidado, hay más de 15 partidos registrados. Esto puede afectar el rendimiento de la búsqueda."
+        echo "Tenga cuidado, hay más de 15 equipos registrados. Esto puede afectar el rendimiento de la búsqueda."
     fi
     echo "Ingrese el nombre del equipo:"
     read nombre_equipo
