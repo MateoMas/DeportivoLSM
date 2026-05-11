@@ -51,13 +51,13 @@ function menu(){
 function definir_nuevo_campeon() {
     echo "Ingrese el nombre del nuevo campeón:"
     read nuevo_campeon
-    if ! grep -qx "$nuevo_campeon" equipos.txt; then
+    if ! grep -iqx "$nuevo_campeon" equipos.txt; then
         echo "El equipo '$nuevo_campeon' no está registrado."
         return
     fi
     sed -i '/^Campeon:/d' equipos.txt
     echo "" >> equipos.txt
-    echo "Campeon: $nuevo_campeon" >> equipos.txt
+    echo "Campeon: $(grep -ix "$nuevo_campeon" equipos.txt)" >> equipos.txt
     echo "Nuevo campeón registrado exitosamente."
     sed -i '/^$/d' equipos.txt
 }
@@ -90,7 +90,7 @@ function registrar_equipo(){
         echo "El nombre del equipo no puede estar vacío."
         return
     fi
-    if grep -Fxq "$nombre_equipo" equipos.txt; then
+    if grep -iFxq "$nombre_equipo" equipos.txt; then
         echo "El equipo ya está registrado."
         return
     fi
@@ -111,7 +111,7 @@ function registrar_partido() {
         echo "El nombre del equipo no puede estar vacío."
         return
     fi
-    if ! grep -qx "$equipo_1" equipos.txt; then
+    if ! grep -iqx "$equipo_1" equipos.txt; then
         echo "El equipo no está registrado."
         return
     fi
@@ -140,7 +140,7 @@ function registrar_partido() {
         return
     fi
 
-    if ! grep -qx "$equipo_2" equipos.txt; then
+    if ! grep -iqx "$equipo_2" equipos.txt; then
         echo "El equipo no está registrado."
         return
     fi
@@ -167,7 +167,7 @@ function registrar_partido() {
         return
     fi
 
-    echo "$equipo_1 ($goles_1) vs $equipo_2 ($goles_2)" >> partidos.txt
+    echo "$(grep -ix "$equipo_1" equipos.txt) ($goles_1) vs $(grep -ix "$equipo_2" equipos.txt) ($goles_2)" >> partidos.txt
     echo "Partido registrado exitosamente."
 }
 
@@ -188,10 +188,10 @@ function buscar_equipo() {
         echo "El nombre del equipo no puede estar vacío."
         return
     fi
-    if grep -qx "$equipo_buscar" equipos.txt; then
-        echo "El equipo '$equipo_buscar' está registrado."
+    if grep -iqx "$equipo_buscar" equipos.txt; then
+        echo "El equipo '$(grep -ix "$equipo_buscar" equipos.txt)' está registrado."
     else
-        echo "El equipo '$equipo_buscar' no está registrado."
+        echo "El equipo '$(grep -ix "$equipo_buscar" equipos.txt)' no está registrado."
     fi
 }
 
