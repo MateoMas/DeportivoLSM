@@ -2,16 +2,69 @@
 
 if [ ! -f equipos.txt ]; then
     touch equipos.txt
-    echo "Arsenal" >> equipos.txt
-    echo "Liverpool" >> equipos.txt
-    echo "Chelsea" >> equipos.txt
-    echo "Manchester City" >> equipos.txt
-    echo "Manchester United" >> equipos.txt
-    echo "Tottenham Hotspur" >> equipos.txt
+    echo "España" >> equipos.txt
+    echo "Inglaterra" >> equipos.txt
+    echo "Alemania" >> equipos.txt
+    echo "Brasil" >> equipos.txt
+    echo "Argentina" >> equipos.txt
+    echo "Uruguay" >> equipos.txt
+    echo "Francia" >> equipos.txt
 fi
 if [ ! -f partidos.txt ]; then
     touch partidos.txt
 fi
+if [ ! -f predefinidos.txt ]; then
+    touch predefinidos.txt
+    echo "Mexico" >> predefinidos.txt
+    echo "Sudafrica" >> predefinidos.txt
+    echo "Corea" >> predefinidos.txt
+    echo "Chequia" >> predefinidos.txt
+    echo "Canada" >> predefinidos.txt
+    echo "Bosnia" >> predefinidos.txt
+    echo "Qatar" >> predefinidos.txt
+    echo "Suiza" >> predefinidos.txt
+    echo "Brasil" >> predefinidos.txt
+    echo "Marruecos" >> predefinidos.txt
+    echo "Haiti" >> predefinidos.txt
+    echo "Escocia" >> predefinidos.txt
+    echo "Estados Unidos" >> predefinidos.txt
+    echo "Paraguay" >> predefinidos.txt
+    echo "Australia" >> predefinidos.txt
+    echo "Turquia" >> predefinidos.txt
+    echo "Alemania" >> predefinidos.txt
+    echo "Curazao" >> predefinidos.txt
+    echo "Costa de Marfil" >> predefinidos.txt
+    echo "Ecuador" >> predefinidos.txt
+    echo "Paises Bajos" >> predefinidos.txt
+    echo "Japon" >> predefinidos.txt
+    echo "Suecia" >> predefinidos.txt
+    echo "Tunez" >> predefinidos.txt
+    echo "Belgica" >> predefinidos.txt
+    echo "Egipto" >> predefinidos.txt
+    echo "Iran" >> predefinidos.txt
+    echo "Nueva Zelanda" >> predefinidos.txt
+    echo "España" >> predefinidos.txt
+    echo "Cabo Verde" >> predefinidos.txt
+    echo "Arabia Saudita" >> predefinidos.txt
+    echo "Uruguay" >> predefinidos.txt
+    echo "Francia" >> predefinidos.txt
+    echo "Senegal" >> predefinidos.txt
+    echo "Irak" >> predefinidos.txt
+    echo "Noruega" >> predefinidos.txt
+    echo "Argentina" >> predefinidos.txt
+    echo "Argelia" >> predefinidos.txt
+    echo "Austria" >> predefinidos.txt
+    echo "Jordania" >> predefinidos.txt
+    echo "Portugal" >> predefinidos.txt
+    echo "Republica Democratica del Congo" >> predefinidos.txt
+    echo "Uzbekistan" >> predefinidos.txt
+    echo "Colombia" >> predefinidos.txt
+    echo "Inglaterra" >> predefinidos.txt
+    echo "Croacia" >> predefinidos.txt
+    echo "Ghana" >> predefinidos.txt
+    echo "Panama" >> predefinidos.txt
+fi
+
 
 continuar=true
 
@@ -30,7 +83,8 @@ function menu(){
     echo "|         6. Ver historial de partidos         |"
     echo "|         7. Buscar equipo                     |"
     echo "|         8. Cantidad de partidos jugados      |"
-    echo "|         9. Salir                             |"
+    echo "|         9. Créditos                          |"
+    echo "|         10. Salir                            |"
     echo "|______________________________________________|"
     read opcion;
     case $opcion in
@@ -42,10 +96,27 @@ function menu(){
         6) ver_historial_partidos ;;
         7) buscar_equipo ;;
         8) cantidad_partidos_jugados ;;
-        9) continuar=false ;;
+        9) creditos ;;
+        10) continuar=false ;;
         *) echo "Opción inválida. Por favor, elija una opción del menú." ;;
     esac
     sleep 1;
+}
+
+function creditos () {
+    echo ""
+    echo "________________________________________________"
+    echo "|                                              |"
+    echo "|                   Créditos                   |"
+    echo "|______________________________________________|"
+    echo "|                                              |"
+    echo "|            Desarrollado por:                 |"
+    echo "|                                              |"
+    echo "|            Santiago Coutinho (378832)        |"
+    echo "|            Mateo Más Lukinskas (375845)      |"
+    echo "|            Luca Tártaro (354973)             |"
+    echo "|______________________________________________|"
+    echo ""
 }
 
 function definir_nuevo_campeon() {
@@ -98,8 +169,12 @@ function registrar_equipo(){
         echo "El nombre del equipo no puede contener la palabra 'Campeon'."
         return
     fi
+    if ! grep -iFxq "$nombre_equipo" predefinidos.txt; then
+        echo "El equipo '$nombre_equipo' no está en el mundial."
+        return
+    fi
     echo "" >> equipos.txt
-    echo "$nombre_equipo" >> equipos.txt
+    echo "$(grep -ix "$nombre_equipo" predefinidos.txt)" >> equipos.txt
     echo "Equipo registrado exitosamente."
     sed -i '/^$/d' equipos.txt
 }
