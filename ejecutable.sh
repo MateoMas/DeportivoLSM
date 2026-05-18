@@ -83,7 +83,8 @@ function menu(){
     echo "|         6. Ver historial de partidos         |"
     echo "|         7. Buscar equipo                     |"
     echo "|         8. Cantidad de partidos jugados      |"
-    echo "|         9. Salir                             |"
+    echo "|         9. Créditos                          |"
+    echo "|         10. Salir                            |"
     echo "|______________________________________________|"
     read opcion;
     case $opcion in
@@ -95,10 +96,27 @@ function menu(){
         6) ver_historial_partidos ;;
         7) buscar_equipo ;;
         8) cantidad_partidos_jugados ;;
-        9) continuar=false ;;
+        9) creditos ;;
+        10) continuar=false ;;
         *) echo "Opción inválida. Por favor, elija una opción del menú." ;;
     esac
     sleep 1;
+}
+
+function creditos () {
+    echo ""
+    echo "________________________________________________"
+    echo "|                                              |"
+    echo "|                   Créditos                   |"
+    echo "|______________________________________________|"
+    echo "|                                              |"
+    echo "|            Desarrollado por:                 |"
+    echo "|                                              |"
+    echo "|            Santiago Coutinho (378832)        |"
+    echo "|            Mateo Más Lukinskas (375845)      |"
+    echo "|            Luca Tártaro (354973)             |"
+    echo "|______________________________________________|"
+    echo ""
 }
 
 function definir_nuevo_campeon() {
