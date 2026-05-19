@@ -2,7 +2,7 @@
 
 if [ ! -f equipos.txt ]; then
     touch equipos.txt
-    echo "España" >> equipos.txt
+    echo "Espania" >> equipos.txt
     echo "Inglaterra" >> equipos.txt
     echo "Alemania" >> equipos.txt
     echo "Brasil" >> equipos.txt
@@ -43,7 +43,7 @@ if [ ! -f predefinidos.txt ]; then
     echo "Egipto" >> predefinidos.txt
     echo "Iran" >> predefinidos.txt
     echo "Nueva Zelanda" >> predefinidos.txt
-    echo "España" >> predefinidos.txt
+    echo "Espana" >> predefinidos.txt
     echo "Cabo Verde" >> predefinidos.txt
     echo "Arabia Saudita" >> predefinidos.txt
     echo "Uruguay" >> predefinidos.txt
@@ -72,18 +72,18 @@ function menu(){
     echo ""
     echo "________________________________________________"
     echo "|                                              |"
-    echo "|                Menú Principal                |"
+    echo "|                Menu Principal                |"
     echo "|______________________________________________|"
     echo "|                                              |"
     echo "|         1. Listar equipos                    |"
-    echo "|         2. Mostrar Campeón actual            |"
-    echo "|         3. Definir nuevo campeón             |"
+    echo "|         2. Mostrar Campeon actual            |"
+    echo "|         3. Definir nuevo campeon             |"
     echo "|         4. Registrar equipo                  |"
     echo "|         5. Registrar partido                 |"
     echo "|         6. Ver historial de partidos         |"
     echo "|         7. Buscar equipo                     |"
     echo "|         8. Cantidad de partidos jugados      |"
-    echo "|         9. Créditos                          |"
+    echo "|         9. Creditos                          |"
     echo "|         10. Salir                            |"
     echo "|______________________________________________|"
     read opcion;
@@ -98,7 +98,7 @@ function menu(){
         8) cantidad_partidos_jugados ;;
         9) creditos ;;
         10) continuar=false ;;
-        *) echo "Opción inválida. Por favor, elija una opción del menú." ;;
+        *) echo "Opcion invalida. Por favor, elija una opcion del menu." ;;
     esac
     sleep 1;
 }
@@ -107,29 +107,29 @@ function creditos () {
     echo ""
     echo "________________________________________________"
     echo "|                                              |"
-    echo "|                   Créditos                   |"
+    echo "|                   Creditos                   |"
     echo "|______________________________________________|"
     echo "|                                              |"
     echo "|            Desarrollado por:                 |"
     echo "|                                              |"
     echo "|            Santiago Coutinho (378832)        |"
-    echo "|            Mateo Más Lukinskas (375845)      |"
-    echo "|            Luca Tártaro (354973)             |"
+    echo "|            Mateo Mas Lukinskas (375845)      |"
+    echo "|            Luca Tartaro (354973)             |"
     echo "|______________________________________________|"
     echo ""
 }
 
 function definir_nuevo_campeon() {
-    echo "Ingrese el nombre del nuevo campeón:"
+    echo "Ingrese el nombre del nuevo campeon:"
     read nuevo_campeon
     if ! grep -iqx "$nuevo_campeon" equipos.txt; then
-        echo "El equipo '$nuevo_campeon' no está registrado."
+        echo "El equipo '$nuevo_campeon' no esta registrado."
         return
     fi
     sed -i '/^Campeon:/d' equipos.txt
     echo "" >> equipos.txt
     echo "Campeon: $(grep -ix "$nuevo_campeon" equipos.txt)" >> equipos.txt
-    echo "Nuevo campeón registrado exitosamente."
+    echo "Nuevo campeon registrado exitosamente."
     sed -i '/^$/d' equipos.txt
 }
 
@@ -144,25 +144,25 @@ function listar_equipos(){
 
 function mostrar_campeon_actual(){
     if ! grep -q "Campeon" equipos.txt; then
-        echo "No hay campeón registrado actualmente."
+        echo "No hay campeon registrado actualmente."
         return
     fi
     campeon=$(grep "Campeon" equipos.txt | tail -n 1 | sed 's/Campeon: //')
-    echo "El campeón actual es: $campeon"
+    echo "El campeon actual es: $campeon"
 }
 
 function registrar_equipo(){
     if [ $(grep -v '^$' equipos.txt | wc -l) -gt 15 ]; then
-        echo "Tenga cuidado, hay más de 15 equipos registrados. Esto puede afectar el rendimiento de la búsqueda."
+        echo "Tenga cuidado, hay mas de 15 equipos registrados. Esto puede afectar el rendimiento de la busqueda."
     fi
     echo "Ingrese el nombre del equipo:"
     read nombre_equipo
     if [ -z "$nombre_equipo" ]; then
-        echo "El nombre del equipo no puede estar vacío."
+        echo "El nombre del equipo no puede estar vacio."
         return
     fi
     if grep -iFxq "$nombre_equipo" equipos.txt; then
-        echo "El equipo ya está registrado."
+        echo "El equipo ya esta registrado."
         return
     fi
     if [[ "$nombre_equipo" =~ Campeon ]]; then
@@ -170,7 +170,7 @@ function registrar_equipo(){
         return
     fi
     if ! grep -iFxq "$nombre_equipo" predefinidos.txt; then
-        echo "El equipo '$nombre_equipo' no está en el mundial."
+        echo "El equipo '$nombre_equipo' no esta en el mundial."
         return
     fi
     echo "" >> equipos.txt
@@ -183,11 +183,11 @@ function registrar_partido() {
     echo "Ingrese el nombre de un equipo:"
     read equipo_1
     if [[ -z "$equipo_1" ]]; then
-        echo "El nombre del equipo no puede estar vacío."
+        echo "El nombre del equipo no puede estar vacio."
         return
     fi
     if ! grep -iqx "$equipo_1" equipos.txt; then
-        echo "El equipo no está registrado."
+        echo "El equipo no esta registrado."
         return
     fi
 
@@ -195,7 +195,7 @@ function registrar_partido() {
     read goles_1
 
     if [[ ! "$goles_1" =~ ^[0-9]+$ ]]; then
-        echo "La cantidad de goles debe ser un número entero."
+        echo "La cantidad de goles debe ser un numero entero."
         return
     fi
     if [[ "$goles_1" -lt 0 ]]; then
@@ -211,12 +211,12 @@ function registrar_partido() {
     read equipo_2
 
     if [[ -z "$equipo_2" ]]; then
-        echo "El nombre del equipo no puede estar vacío."
+        echo "El nombre del equipo no puede estar vacio."
         return
     fi
 
     if ! grep -iqx "$equipo_2" equipos.txt; then
-        echo "El equipo no está registrado."
+        echo "El equipo no esta registrado."
         return
     fi
 
@@ -229,7 +229,7 @@ function registrar_partido() {
     read goles_2
 
     if [[ ! "$goles_2" =~ ^[0-9]+$ ]]; then
-        echo "La cantidad de goles debe ser un número entero."
+        echo "La cantidad de goles debe ser un numero entero."
         return
     fi
 
@@ -260,13 +260,13 @@ function buscar_equipo() {
     echo "Ingrese el nombre del equipo a buscar:"
     read equipo_buscar
     if [[ -z "$equipo_buscar" ]]; then
-        echo "El nombre del equipo no puede estar vacío."
+        echo "El nombre del equipo no puede estar vacio."
         return
     fi
     if grep -iqx "$equipo_buscar" equipos.txt; then
-        echo "El equipo '$(grep -ix "$equipo_buscar" equipos.txt)' está registrado."
+        echo "El equipo '$(grep -ix "$equipo_buscar" equipos.txt)' esta registrado."
     else
-        echo "El equipo '$(grep -ix "$equipo_buscar" equipos.txt)' no está registrado."
+        echo "El equipo '$(grep -ix "$equipo_buscar" equipos.txt)' no esta registrado."
     fi
 }
 
